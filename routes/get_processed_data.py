@@ -1,9 +1,10 @@
-from flask import jsonify
-from app.routes import main
-from app.utils import processed_data
+from flask import Blueprint, jsonify
+import data_storage
+
+get_processed_data_bp = Blueprint('get_processed_data', __name__)
 
 
-@main.route('/get-processed-data', methods=['GET'])
+@get_processed_data_bp.route('/get-processed-data', methods=['GET'])
 def get_processed_data():
-    """Retrieve processed data stored in memory."""
-    return jsonify(processed_data)
+    data = data_storage.get_data()
+    return jsonify(data)
